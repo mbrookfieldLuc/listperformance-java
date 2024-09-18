@@ -41,17 +41,17 @@ public class TestList {
   public void testSizeNonEmpty() {
     // TODO fix the expected values in the assertions below
     list.add(77);
-    assertEquals(true, list.isEmpty());
-    assertEquals(0, list.size());
-    assertEquals(0, list.get(0).intValue());
+    assertTrue(!list.isEmpty());
+    assertEquals(1, list.size());
+    assertEquals(77, list.get(0).intValue());
   }
 
   @Test
   public void testContains() {
     // TODO write assertions using
-    // list.contains(77)
-    // that hold before and after adding 77 to the list
-    fail("Not yet implemented"); // remove this line when done
+    assertTrue(!list.contains(77));
+    list.add(77);
+    assertTrue(list.contains(77));
   }
 
   @Test
@@ -150,6 +150,9 @@ public class TestList {
     // TODO in a single statement using removeAll and List.of,
     // remove items from the list to make the following assertions pass
     // (without touching the assertions themselves)
+    list.remove(33);
+    list.remove(44);
+    list.remove(55);
     assertEquals(3, list.size());
     assertEquals(List.of(77, 77, 77), list);
   }
