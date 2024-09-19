@@ -10,6 +10,7 @@ import org.junit.Test;
 public class TestPerformance {
 
   // TODO run test and record running times for SIZE = 10, 100, 1000, 10000, ...
+  public int[] SIZES = {10, 100, 1000, 10000, 100000};
   // (choose in conjunction with REPS below up to an upper limit where the clock
   // running time is in the tens of seconds)
   // TODO (optional) refactor to DRY
@@ -48,8 +49,29 @@ public class TestPerformance {
     }
   }
 
+  public void clearList(int size) {
+    arrayList.clear();
+    linkedList.clear();
+    for(int i = 0; i < size; i++) {
+      arrayList.add(i);
+      linkedList.add(i);
+    }
+  }
+
   @Test
   public void testArrayListAddRemove() {
+    for (int size : SIZES) {
+      clearList(size);
+      System.out.println("Testing add and remove for size " + size);
+      long startTime = System.currentTimeMillis();
+      for(int k = 0; k < REPS; k++) {
+        linkedList.add(0, 77);
+        linkedList.remove(0);
+      }
+      long endTime = System.currentTimeMillis();
+      System.out.println("Add and remove time: " + (endTime-startTime));
+      System.out.println();
+    }
     for (var r = 0; r < REPS; r++) {
       arrayList.add(0, 77);
       arrayList.remove(0);
@@ -59,16 +81,36 @@ public class TestPerformance {
   @Test
   public void testLinkedListAccess() {
     var sum = 0L;
-    for (var r = 0; r < REPS; r++) {
-      sum += linkedList.get(r % SIZE);
+    for(int sizes : SIZES) {
+      clearList(sizes);
+      System.out.println("Testing linkedList access for size: " + sizes);
+      long startTime = System.currentTimeMillis();
+      for (var r = 0; r < REPS; r++) {
+        sum += linkedList.get(r % SIZE);
+      }
+      long endTime = System.currentTimeMillis();
+      System.out.println("LinkedList access time: " + (endTime-startTime));
     }
+
+
+
+
+
   }
 
   @Test
   public void testArrayListAccess() {
     var sum = 0L;
-    for (var r = 0; r < REPS; r++) {
-      sum += arrayList.get(r % SIZE);
+    for(int sizes : SIZES) {
+      clearList(sizes);
+      System.out.println("Testing ArrayList access for size: " + sizes);
+      long startTime = System.currentTimeMillis();
+      for (var r = 0; r < REPS; r++) {
+        sum += arrayList.get(r % SIZE);
+      }
+      long endTime = System.currentTimeMillis();
+      System.out.println("ArrayList access time: " + (endTime-startTime));
     }
+
   }
 }
