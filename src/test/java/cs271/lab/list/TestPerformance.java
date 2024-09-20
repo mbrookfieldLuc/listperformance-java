@@ -43,10 +43,17 @@ public class TestPerformance {
 
   @Test
   public void testLinkedListAddRemove() {
-    for (var r = 0; r < REPS; r++) {
-      linkedList.add(0, 77);
-      linkedList.remove(0);
+    for(int size : SIZES) {
+      System.out.println("Testing add and remove for size " + size);
+      long startTime = System.currentTimeMillis();
+      for (var r = 0; r < REPS; r++) {
+        linkedList.add(0, 77);
+        linkedList.remove(0);
+      }
+      long endTime = System.currentTimeMillis();
+      System.out.println("LinkedList Add and remove time: " + (endTime-startTime));
     }
+
   }
 
   public void clearList(int size) {
@@ -81,16 +88,19 @@ public class TestPerformance {
   @Test
   public void testLinkedListAccess() {
     var sum = 0L;
+
     for(int sizes : SIZES) {
       clearList(sizes);
-      System.out.println("Testing linkedList access for size: " + sizes);
       long startTime = System.currentTimeMillis();
+      System.out.println("Testing linkedList access for size: " + sizes);
+
       for (var r = 0; r < REPS; r++) {
         sum += linkedList.get(r % SIZE);
       }
       long endTime = System.currentTimeMillis();
       System.out.println("LinkedList access time: " + (endTime-startTime));
     }
+
 
 
 
